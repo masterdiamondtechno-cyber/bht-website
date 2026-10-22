@@ -5,9 +5,6 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  Code2,
-  Terminal,
-  BarChart3,
   GraduationCap,
   Briefcase,
   Layers,
@@ -23,10 +20,9 @@ import {
 import Button from "../components/Button";
 import SectionHeading from "../components/SectionHeading";
 import StatsSection from "../components/StatsSection";
+import { JavaIcon, PythonIcon, DataAnalyticsIcon } from "../components/CourseIcons";
 import CourseCard from "../components/CourseCard";
 import FeatureCard from "../components/FeatureCard";
-import CTASection from "../components/CTASection";
-import CompanyGrid from "../components/CompanyGrid";
 import { courses } from "../data/courses";
 import { whyBhtCards, learningStages, placementPillars, siteConfig } from "../data/features";
 
@@ -220,26 +216,26 @@ export default function Home() {
                         Active Curriculum Tracks
                       </span>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-200/70 text-blue-800">
-                        6 Months / 120 Days
+                        6 Months
                       </span>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between p-2 rounded-xl bg-white text-xs font-semibold text-slate-800 shadow-2xs">
                         <span className="flex items-center gap-2">
-                          <Code2 className="w-4 h-4 text-orange-500" /> Java Full Stack + AI
+                          <JavaIcon className="w-4 h-4" /> Java Full Stack + AI
                         </span>
                         <span className="text-[10px] text-emerald-600 font-bold">Live Batches</span>
                       </div>
                       <div className="flex items-center justify-between p-2 rounded-xl bg-white text-xs font-semibold text-slate-800 shadow-2xs">
                         <span className="flex items-center gap-2">
-                          <Terminal className="w-4 h-4 text-blue-500" /> Python Full Stack + AI
+                          <PythonIcon className="w-4 h-4" /> Python Full Stack + AI
                         </span>
                         <span className="text-[10px] text-emerald-600 font-bold">Live Batches</span>
                       </div>
                       <div className="flex items-center justify-between p-2 rounded-xl bg-white text-xs font-semibold text-slate-800 shadow-2xs">
                         <span className="flex items-center gap-2">
-                          <BarChart3 className="w-4 h-4 text-purple-500" /> Data Analytics + AI
+                          <DataAnalyticsIcon className="w-4 h-4" /> Data Analytics + AI
                         </span>
                         <span className="text-[10px] text-emerald-600 font-bold">Live Batches</span>
                       </div>
@@ -267,18 +263,6 @@ export default function Home() {
                   <div className="text-left">
                     <div className="text-xs font-bold text-slate-900">6 Months</div>
                     <div className="text-[10px] text-slate-500">Comprehensive</div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute -top-5 -right-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float-delayed"
-                >
-                  <div className="w-7 h-7 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs">
-                    120D
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-slate-900">120 Days</div>
-                    <div className="text-[10px] text-slate-500">Daily Labs</div>
                   </div>
                 </motion.div>
 
@@ -353,7 +337,7 @@ export default function Home() {
             badgeColor="orange"
             title="Our Career-Focused"
             highlight="Training Programs"
-            subtitle="Build practical skills, work on real-world projects and prepare for your technology career with our 6-Month / 120-Day immersive curriculum."
+            subtitle="Build practical skills, work on real-world projects and prepare for your technology career with our 6-Month immersive curriculum."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -491,22 +475,12 @@ export default function Home() {
           </div>
 
           <div className="mt-10 text-center">
-            <Button to="/placements" variant="gradient" size="lg" arrow>
-              Explore Placement Assistance
+            <Button to="/admissions" variant="gradient" size="lg" arrow>
+              Start Your Career Journey
             </Button>
           </div>
         </div>
       </section>
-
-      {/* ============================================================
-          8. COMPANY OPPORTUNITIES SECTION
-          ============================================================ */}
-      <CompanyGrid />
-
-      {/* ============================================================
-          9. FINAL HOME CTA
-          ============================================================ */}
-      <CTASection />
     </div>
   );
 }

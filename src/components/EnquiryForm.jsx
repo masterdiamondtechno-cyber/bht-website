@@ -9,17 +9,19 @@ import {
   Sparkles,
   AlertCircle,
   RefreshCw,
+  MessageSquare,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import Button from "./Button";
 import { siteConfig } from "../data/features";
-import { submitEnquiryToBackend } from "../services/apiService";
-import { sendEnquiryEmail, isEmailConfigured } from "../services/emailService";
+import { submitEnquiry } from "../services/enquiryService";
 
 export default function EnquiryForm({ defaultCourse = "", compact = false }) {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
+    whatsapp: "",
+    sameAsMobile: true,
     email: "",
     course: defaultCourse || "Java Full Stack with AI",
     education: "B.E. / B.Tech (CS / IT / ECE / Others)",
@@ -85,6 +87,21 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
       newErrors.phone = "Please enter a valid mobile number (10-15 digits).";
     }
 
+    // Validate WhatsApp number if not marked same as mobile
+    if (!formData.sameAsMobile) {
+      const trimmedWhatsapp = (formData.whatsapp || "").trim();
+      const whatsappDigits = trimmedWhatsapp.replace(/\D/g, "");
+      if (!trimmedWhatsapp) {
+        newErrors.whatsapp = "Please enter your WhatsApp number or check 'Same as mobile'.";
+      } else if (
+        whatsappDigits.length < 10 ||
+        whatsappDigits.length > 15 ||
+        !/^[0-9+\s-]{10,18}$/.test(trimmedWhatsapp)
+      ) {
+        newErrors.whatsapp = "Please enter a valid WhatsApp number (10-15 digits).";
+      }
+    }
+
     const trimmedEmail = formData.email.trim();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!trimmedEmail) {
@@ -103,16 +120,36 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      if (name === "phone" && prev.sameAsMobile) {
+        updated.whatsapp = value;
+      }
+      return updated;
+    });
+
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleSameAsMobileToggle = (e) => {
+    const checked = e.target.checked;
+    setFormData((prev) => ({
+      ...prev,
+      sameAsMobile: checked,
+      whatsapp: checked ? prev.phone : "",
+    }));
+
+    if (checked && errors.whatsapp) {
+      setErrors((prev) => ({ ...prev, whatsapp: "" }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prevent repeated clicks while submitting
+    // Prevent repeated clicks while submitting (throttled)
     const now = Date.now();
     if (isSubmitting || now - lastSubmitTimeRef.current < 2500) {
       return;
@@ -125,41 +162,39 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
     setSubmitError("");
 
     try {
-      // 1. Submit to Node.js + Express + MySQL backend
-      const backendResult = await submitEnquiryToBackend(formData);
+      const finalWhatsApp = formData.sameAsMobile
+        ? formData.phone
+        : (formData.whatsapp || formData.phone);
 
-      if (!backendResult.success) {
-        setIsSubmitting(false);
-        setSubmitError(
-          backendResult.error ||
-            "Unable to submit enquiry to server. Please check your connection and try again."
-        );
-        return;
-      }
+      const submissionPayload = {
+        fullName: formData.fullName.trim(),
+        phone: formData.phone.trim(),
+        whatsapp: finalWhatsApp.trim(),
+        email: formData.email.trim(),
+        course: formData.course,
+        education: formData.education,
+        experience: formData.experience,
+        message: formData.message.trim(),
+      };
 
-      // 2. Trigger EmailJS notification in parallel if configured
-      if (isEmailConfigured()) {
-        sendEnquiryEmail(formData).catch(() => {
-          // Safe non-blocking background notification
-        });
-      }
+      await submitEnquiry(submissionPayload);
 
       setIsSubmitting(false);
       setIsSubmitted(true);
 
       try {
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 120,
+          spread: 75,
           origin: { y: 0.6 },
-          colors: ["#2563EB", "#06B6D4", "#10B981", "#7C3AED"],
+          colors: ["#2563EB", "#06B6D4", "#10B981", "#7C3AED", "#F59E0B"],
         });
       } catch {}
     } catch (err) {
       setIsSubmitting(false);
       setSubmitError(
         err?.message ||
-          "An unexpected error occurred while sending your enquiry. Please try again."
+          "An unexpected error occurred while processing your enquiry. Please try again."
       );
     }
   };
@@ -171,6 +206,8 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
     setFormData({
       fullName: "",
       phone: "",
+      whatsapp: "",
+      sameAsMobile: true,
       email: "",
       course: defaultCourse || "Java Full Stack with AI",
       education: "B.E. / B.Tech (CS / IT / ECE / Others)",
@@ -202,20 +239,46 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
           <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto mb-6">
             Thank you, <strong className="text-slate-800">{formData.fullName}</strong>! Your
             admission enquiry for <strong className="text-blue-600">{formData.course}</strong> has
-            been delivered to our admissions team at{" "}
-            <span className="font-semibold text-slate-800">{siteConfig.email}</span>.
+            been sent to our admissions team at{" "}
+            <span className="font-semibold text-slate-800">bht.enquiry123@gmail.com</span> and recorded in our admissions spreadsheet.
           </p>
 
-          {/* Simple, Professional Confirmation Card */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 max-w-md mx-auto mb-6 text-left space-y-3 text-xs sm:text-sm">
+          {/* Detailed Confirmation Card */}
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 max-w-md mx-auto mb-6 text-left space-y-3.5 text-xs sm:text-sm">
             <div className="flex items-center gap-2 font-bold text-slate-900 text-sm pb-2 border-b border-slate-200">
               <Sparkles className="w-4 h-4 text-blue-600" />
-              What Happens Next:
+              Recorded Enquiry Details:
             </div>
-            <p className="text-slate-600 text-xs leading-relaxed">
+
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span className="text-slate-400 block font-medium">Full Name:</span>
+                <span className="font-semibold text-slate-800">{formData.fullName}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block font-medium">Selected Course:</span>
+                <span className="font-semibold text-blue-600">{formData.course}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block font-medium">Mobile Number:</span>
+                <span className="font-semibold text-slate-800">{formData.phone}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block font-medium">WhatsApp:</span>
+                <span className="font-semibold text-emerald-700">
+                  {formData.sameAsMobile ? formData.phone : (formData.whatsapp || formData.phone)}
+                </span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-slate-400 block font-medium">Email Address:</span>
+                <span className="font-semibold text-slate-800">{formData.email}</span>
+              </div>
+            </div>
+
+            <p className="text-slate-600 text-xs leading-relaxed pt-2.5 border-t border-slate-200">
               Our Admissions &amp; Career Counselor (
               <strong className="text-slate-900">{siteConfig.contactPerson}</strong>) will review
-              your enquiry and contact you directly with the full curriculum, upcoming batch timings,
+              your enquiry and contact you directly with full syllabus details, batch schedule,
               and fee guidance.
             </p>
             <div className="text-[11px] text-slate-500 pt-1 border-t border-slate-200/70">
@@ -228,7 +291,7 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
           <div>
             <button
               onClick={handleReset}
-              className="px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors"
+              className="px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors cursor-pointer"
             >
               Submit Another Enquiry
             </button>
@@ -241,8 +304,8 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
               Apply / Request Program Details
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Fill in your details below and our admissions team will share the complete syllabus,
-              upcoming batch timings, and fee guidance.
+              Fill in your details below and our admissions team will send the full syllabus,
+              batch schedule, and fee details to your email &amp; WhatsApp.
             </p>
           </div>
 
@@ -251,13 +314,13 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
             <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-800 space-y-1">
               <div className="font-bold flex items-center gap-1.5 text-sm text-red-900">
                 <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
-                Submission Failed
+                Submission Notice
               </div>
               <p>{submitError}</p>
             </div>
           )}
 
-          {/* Full Name & Mobile Number */}
+          {/* Full Name & Email Address */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
@@ -288,36 +351,6 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
 
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Mobile Number <span className="text-red-500">*</span>
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="e.g. 9876543210"
-                  disabled={isSubmitting}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-slate-900 bg-slate-50/50 focus:bg-white transition-all focus:outline-none focus:ring-2 ${
-                    errors.phone
-                      ? "border-red-400 focus:ring-red-400/20"
-                      : "border-slate-300 focus:border-blue-500 focus:ring-blue-500/20"
-                  }`}
-                />
-              </div>
-              {errors.phone && (
-                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Email & Course Interested In */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Email Address <span className="text-red-500">*</span>
               </label>
               <div className="relative">
@@ -342,34 +375,104 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
                 <p className="text-xs text-red-500 mt-1">{errors.email}</p>
               )}
             </div>
+          </div>
 
+          {/* Mobile Number & WhatsApp Number */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Course Interested In <span className="text-red-500">*</span>
+                Mobile Number <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <select
-                  name="course"
-                  value={formData.course}
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
+                  placeholder="e.g. 9876543210"
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 bg-slate-50/50 focus:bg-white transition-all focus:outline-none focus:ring-2 cursor-pointer ${
-                    errors.course
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-slate-900 bg-slate-50/50 focus:bg-white transition-all focus:outline-none focus:ring-2 ${
+                    errors.phone
                       ? "border-red-400 focus:ring-red-400/20"
                       : "border-slate-300 focus:border-blue-500 focus:ring-blue-500/20"
                   }`}
-                >
-                  {coursesList.map((c) => (
-                    <option key={c} value={c}>
-                      {c} (6 Months / 120 Days)
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
-              {errors.course && (
-                <p className="text-xs text-red-500 mt-1">{errors.course}</p>
+              {errors.phone && (
+                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
               )}
             </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  WhatsApp Number
+                </label>
+                <label className="flex items-center gap-1.5 text-[11px] text-slate-600 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={formData.sameAsMobile}
+                    onChange={handleSameAsMobileToggle}
+                    disabled={isSubmitting}
+                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <span>Same as Mobile</span>
+                </label>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-600">
+                  <MessageSquare className="w-4 h-4" />
+                </div>
+                <input
+                  type="tel"
+                  name="whatsapp"
+                  value={formData.sameAsMobile ? formData.phone : formData.whatsapp}
+                  onChange={handleChange}
+                  placeholder={formData.sameAsMobile ? "Same as mobile" : "e.g. 9876543210"}
+                  disabled={formData.sameAsMobile || isSubmitting}
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm text-slate-900 transition-all focus:outline-none focus:ring-2 ${
+                    formData.sameAsMobile
+                      ? "bg-slate-100/70 border-slate-200 text-slate-600 cursor-not-allowed"
+                      : "bg-slate-50/50 focus:bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500/20"
+                  } ${errors.whatsapp ? "border-red-400 focus:ring-red-400/20" : ""}`}
+                />
+              </div>
+              {errors.whatsapp && (
+                <p className="text-xs text-red-500 mt-1">{errors.whatsapp}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Course Selection */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Course Interested In <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <select
+                name="course"
+                value={formData.course}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 bg-slate-50/50 focus:bg-white transition-all focus:outline-none focus:ring-2 cursor-pointer ${
+                  errors.course
+                    ? "border-red-400 focus:ring-red-400/20"
+                    : "border-slate-300 focus:border-blue-500 focus:ring-blue-500/20"
+                }`}
+              >
+                {coursesList.map((c) => (
+                  <option key={c} value={c}>
+                    {c} (6 Months)
+                  </option>
+                ))}
+              </select>
+            </div>
+            {errors.course && (
+              <p className="text-xs text-red-500 mt-1">{errors.course}</p>
+            )}
           </div>
 
           {/* Current Education & Experience Level (only in full mode) */}
@@ -464,7 +567,7 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
               </span>
             </div>
             <span className="text-[11px] text-slate-400">
-              *Your information is completely confidential.
+              *Enquiries forwarded to <strong>bht.enquiry123@gmail.com</strong>
             </span>
           </div>
         </form>

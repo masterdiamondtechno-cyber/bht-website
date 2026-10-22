@@ -190,15 +190,6 @@ export const placementPillars = [
   },
 ];
 
-export const targetCompanies = [
-  { name: "Infosys", logoText: "Infosys", color: "#007CC3" },
-  { name: "TCS", logoText: "TCS", color: "#E82127" },
-  { name: "Accenture", logoText: "Accenture", color: "#A100FF" },
-  { name: "Capgemini", logoText: "Capgemini", color: "#0070AD" },
-  { name: "Wipro", logoText: "Wipro", color: "#F05A28" },
-  { name: "Cognizant", logoText: "Cognizant", color: "#1F4E79" },
-];
-
 export const comparisonData = [
   {
     feature: "Curriculum Focus",

@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import PageHeader from "../components/PageHeader";
 import SectionHeading from "../components/SectionHeading";
-import CTASection from "../components/CTASection";
 import Button from "../components/Button";
 import { siteConfig, learningStages } from "../data/features";
 
@@ -38,7 +37,7 @@ export default function About() {
     },
     {
       title: "Daily Consistency",
-      desc: "Skill excellence is the outcome of dedicated daily practice across our structured 120-day learning calendar.",
+      desc: "Skill excellence is the outcome of dedicated daily practice across our structured learning calendar.",
       icon: ShieldCheck,
       color: "bg-purple-100 text-purple-600 border-purple-200",
     },
@@ -131,7 +130,7 @@ export default function About() {
                   <div className="space-y-4 text-sm text-slate-300">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
-                      <span><strong>6 Months / 120 Days:</strong> Immersive structured learning programs designed for career transition.</span>
+                      <span><strong>6 Months:</strong> Immersive structured learning programs designed for career transition.</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
@@ -316,14 +315,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      {/* ============================================================
-          CALL TO ACTION
-          ============================================================ */}
-      <CTASection
-        title="Ready to Learn with BHT?"
-        description="Join our upcoming 6-Month / 120-Day batch in Pune and start building your real-world technology skillset."
-      />
     </div>
   );
 }

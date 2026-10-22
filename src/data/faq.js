@@ -29,7 +29,7 @@ export const faqs = [
       },
       {
         q: "How long are the courses?",
-        a: "Each of our core training programs spans 6 Months / 120 Days of intensive, structured learning, daily hands-on practice, live project development, and career preparation.",
+        a: "Each of our core training programs spans 6 Months of intensive, structured learning, daily hands-on practice, live project development, and career preparation.",
       },
       {
         q: "What is included in Java Full Stack with AI?",
@@ -62,7 +62,7 @@ export const faqs = [
       },
       {
         q: "How are student progress and assessments tracked?",
-        a: "We conduct regular weekly practical assessments, coding challenges, periodic knowledge tests, and one-on-one code reviews to ensure concept mastery throughout the 120-day journey.",
+        a: "We conduct regular weekly practical assessments, coding challenges, periodic knowledge tests, and one-on-one code reviews to ensure concept mastery throughout the learning journey.",
       },
     ],
   },
