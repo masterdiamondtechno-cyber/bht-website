@@ -335,7 +335,12 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {courses.map((course, idx) => (
-              <CourseCard key={course.id} course={course} index={idx} />
+              <CourseCard
+                key={course.id}
+                course={course}
+                index={idx}
+                maxSkills={course.id === "java-full-stack-ai" ? 18 : 8}
+              />
             ))}
           </div>
         </div>

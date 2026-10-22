@@ -7,7 +7,7 @@ import {
 import Button from "./Button";
 import { JavaIcon, PythonIcon, DataAnalyticsIcon } from "./CourseIcons";
 
-export default function CourseCard({ course, index = 0 }) {
+export default function CourseCard({ course, index = 0, maxSkills = 7 }) {
   const iconMap = {
     "java-full-stack-ai": JavaIcon,
     "python-full-stack-ai": PythonIcon,
@@ -42,6 +42,8 @@ export default function CourseCard({ course, index = 0 }) {
   };
 
   const currentTheme = themes[course.id] || themes["java-full-stack-ai"];
+  const visibleSkills = course.skills.slice(0, maxSkills);
+  const remainingSkills = course.skills.length - visibleSkills.length;
 
   return (
     <motion.div
@@ -73,16 +75,18 @@ export default function CourseCard({ course, index = 0 }) {
           </div>
         </div>
 
-        {/* Title & Subtitle */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
-          <Link to={`/courses/${course.slug}`}>{course.title}</Link>
-        </h3>
-        <p className="text-xs sm:text-sm font-medium text-slate-500 mb-3">
-          {course.subtitle}
-        </p>
-        <p className="text-sm text-slate-600 leading-relaxed mb-6">
-          {course.shortDescription}
-        </p>
+        {/* Reserve equal space so the AI highlight aligns across course cards. */}
+        <div className="lg:min-h-[14rem]">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
+            <Link to={`/courses/${course.slug}`}>{course.title}</Link>
+          </h3>
+          <p className="text-xs sm:text-sm font-medium text-slate-500 mb-3">
+            {course.subtitle}
+          </p>
+          <p className="text-sm text-slate-600 leading-relaxed mb-6">
+            {course.shortDescription}
+          </p>
+        </div>
 
         {/* AI Integration Highlight Pill */}
         <div className="mb-6 p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
@@ -103,7 +107,7 @@ export default function CourseCard({ course, index = 0 }) {
             Core Technologies &amp; Skills
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {course.skills.slice(0, 7).map((skill) => (
+            {visibleSkills.map((skill) => (
               <span
                 key={skill}
                 className={`text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors ${currentTheme.skillBg}`}
@@ -111,9 +115,9 @@ export default function CourseCard({ course, index = 0 }) {
                 {skill}
               </span>
             ))}
-            {course.skills.length > 7 && (
+            {remainingSkills > 0 && (
               <span className="text-xs px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 font-medium border border-slate-200">
-                +{course.skills.length - 7} more
+                +{remainingSkills} more
               </span>
             )}
           </div>
