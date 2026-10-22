@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { HelpCircle, Sparkles, MessageCircle, Phone } from "lucide-react";
 import PageHeader from "../components/PageHeader";
 import FAQAccordion from "../components/FAQAccordion";
-import CTASection from "../components/CTASection";
 import Button from "../components/Button";
 import { faqs } from "../data/faq";
 import { siteConfig } from "../data/features";
@@ -97,8 +96,6 @@ export default function FAQ() {
           </div>
         </div>
       </section>
-
-      <CTASection />
     </div>
   );
 }

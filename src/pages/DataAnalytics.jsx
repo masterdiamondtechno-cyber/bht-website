@@ -21,8 +21,8 @@ import PageHeader from "../components/PageHeader";
 import SectionHeading from "../components/SectionHeading";
 import CourseModule from "../components/CourseModule";
 import Button from "../components/Button";
-import CTASection from "../components/CTASection";
 import EnquiryForm from "../components/EnquiryForm";
+import { DataAnalyticsIcon } from "../components/CourseIcons";
 import { courses } from "../data/courses";
 
 export default function DataAnalytics() {
@@ -37,7 +37,7 @@ export default function DataAnalytics() {
   return (
     <div>
       <PageHeader
-        badge="Career Program • 6 Months / 120 Days"
+        badge="Career Program • 6 Months"
         badgeColor="purple"
         title="Data Analytics &amp;"
         highlight="Business Intelligence"
@@ -55,7 +55,7 @@ export default function DataAnalytics() {
             <div className="p-3 rounded-2xl bg-purple-50/60 border border-purple-100">
               <div className="text-xs font-bold text-slate-500">Duration</div>
               <div className="text-base sm:text-lg font-extrabold text-purple-600 mt-0.5">
-                6 Months / 120 Days
+                6 Months
               </div>
             </div>
             <div className="p-3 rounded-2xl bg-blue-50/60 border border-blue-100">
@@ -90,13 +90,20 @@ export default function DataAnalytics() {
             {/* Left Content */}
             <div className="lg:col-span-8 space-y-8">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-2 block">
-                  Course Overview
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-                  Transform Raw Data into Strategic Decision Intelligence
-                </h2>
-                <p className="text-base text-slate-600 leading-relaxed">
+                <div className="flex items-center gap-3.5 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-amber-200/90 shadow-sm flex items-center justify-center p-2 shrink-0">
+                    <DataAnalyticsIcon className="w-7 h-7" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-purple-600 block">
+                      Course Overview
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                      Transform Raw Data into Strategic Decision Intelligence
+                    </h2>
+                  </div>
+                </div>
+                <p className="text-base text-slate-600 leading-relaxed mt-4">
                   {course.fullDescription}
                 </p>
               </div>

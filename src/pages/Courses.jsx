@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Code2,
-  Terminal,
-  BarChart3,
   Clock,
   Sparkles,
   ArrowRight,
@@ -17,8 +14,8 @@ import {
 import PageHeader from "../components/PageHeader";
 import SectionHeading from "../components/SectionHeading";
 import Button from "../components/Button";
-import CTASection from "../components/CTASection";
 import { courses } from "../data/courses";
+import { getCourseIcon } from "../components/CourseIcons";
 
 export default function Courses() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -75,6 +72,7 @@ export default function Courses() {
       <section className="py-16 sm:py-20 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           {filteredCourses.map((course, idx) => {
+            const IconComponent = getCourseIcon(course.id);
             return (
               <motion.div
                 key={course.id}
@@ -109,18 +107,23 @@ export default function Courses() {
                         </span>
                       </div>
 
-                      <div>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-                          <Link
-                            to={`/courses/${course.slug}`}
-                            className="hover:text-blue-600 transition-colors"
-                          >
-                            {course.title}
-                          </Link>
-                        </h2>
-                        <p className="text-sm sm:text-base font-semibold text-blue-600">
-                          {course.subtitle}
-                        </p>
+                      <div className="flex items-start gap-4">
+                        <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 shrink-0">
+                          <IconComponent className="w-9 h-9" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
+                            <Link
+                              to={`/courses/${course.slug}`}
+                              className="hover:text-blue-600 transition-colors"
+                            >
+                              {course.title}
+                            </Link>
+                          </h2>
+                          <p className="text-sm sm:text-base font-semibold text-blue-600">
+                            {course.subtitle}
+                          </p>
+                        </div>
                       </div>
 
                       <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -219,14 +222,6 @@ export default function Courses() {
           })}
         </div>
       </section>
-
-      {/* Call to action */}
-      <CTASection
-        title="Need Help Choosing the Right Program?"
-        description="Connect with Satish Gadhave (Admissions & Career Counselor) to discuss your academic background and find the ideal career path."
-        primaryBtnText="Talk to Counselor"
-        primaryBtnLink="/contact"
-      />
     </div>
   );
 }

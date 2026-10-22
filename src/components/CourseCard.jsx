@@ -4,28 +4,26 @@ import {
   Clock,
   ArrowRight,
   Sparkles,
-  Code2,
-  Terminal,
-  BarChart3,
   CheckCircle2,
   Cpu,
 } from "lucide-react";
 import Button from "./Button";
+import { JavaIcon, PythonIcon, DataAnalyticsIcon } from "./CourseIcons";
 
 export default function CourseCard({ course, index = 0 }) {
   const iconMap = {
-    "java-full-stack-ai": Code2,
-    "python-full-stack-ai": Terminal,
-    "data-analytics": BarChart3,
+    "java-full-stack-ai": JavaIcon,
+    "python-full-stack-ai": PythonIcon,
+    "data-analytics": DataAnalyticsIcon,
   };
 
-  const IconComponent = iconMap[course.id] || Code2;
+  const IconComponent = iconMap[course.id] || JavaIcon;
 
   // Custom accent themes based on course
   const themes = {
     "java-full-stack-ai": {
       borderColor: "hover:border-orange-300",
-      iconBg: "bg-gradient-to-br from-orange-500 to-amber-500",
+      iconBg: "bg-white border border-orange-200/80 shadow-md shadow-orange-500/10",
       badge: "bg-orange-50 text-orange-700 border-orange-200",
       topHighlight: "from-orange-500 to-blue-500",
       skillBg: "bg-orange-50 text-slate-700 hover:bg-orange-100 border-orange-100",
@@ -33,17 +31,17 @@ export default function CourseCard({ course, index = 0 }) {
     },
     "python-full-stack-ai": {
       borderColor: "hover:border-cyan-300",
-      iconBg: "bg-gradient-to-br from-blue-600 to-cyan-500",
+      iconBg: "bg-white border border-blue-200/80 shadow-md shadow-blue-500/10",
       badge: "bg-blue-50 text-blue-700 border-blue-200",
       topHighlight: "from-blue-600 to-cyan-500",
       skillBg: "bg-blue-50 text-slate-700 hover:bg-blue-100 border-blue-100",
       btnHighlight: "hover:border-blue-500 text-blue-600",
     },
     "data-analytics": {
-      borderColor: "hover:border-purple-300",
-      iconBg: "bg-gradient-to-br from-purple-600 to-indigo-600",
+      borderColor: "hover:border-amber-300",
+      iconBg: "bg-white border border-amber-200/80 shadow-md shadow-amber-500/10",
       badge: "bg-purple-50 text-purple-700 border-purple-200",
-      topHighlight: "from-purple-600 to-indigo-500",
+      topHighlight: "from-amber-500 to-indigo-500",
       skillBg: "bg-purple-50 text-slate-700 hover:bg-purple-100 border-purple-100",
       btnHighlight: "hover:border-purple-500 text-purple-600",
     },
@@ -69,9 +67,9 @@ export default function CourseCard({ course, index = 0 }) {
         {/* Top Header Row */}
         <div className="flex items-start justify-between gap-4 mb-5">
           <div
-            className={`w-14 h-14 rounded-2xl ${currentTheme.iconBg} text-white flex items-center justify-center shadow-md shadow-slate-200 transition-transform duration-300 group-hover:scale-110`}
+            className={`w-14 h-14 rounded-2xl ${currentTheme.iconBg} flex items-center justify-center p-2.5 shadow-md shadow-slate-100 transition-transform duration-300 group-hover:scale-110`}
           >
-            <IconComponent className="w-7 h-7" />
+            <IconComponent className="w-8 h-8" />
           </div>
 
           <div className="flex flex-col items-end gap-1.5">

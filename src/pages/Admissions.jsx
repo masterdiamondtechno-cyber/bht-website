@@ -44,7 +44,7 @@ export default function Admissions() {
     },
     {
       step: "04",
-      title: "Start 120-Day Training",
+      title: "Start Practical Training",
       desc: "Begin interactive classroom sessions, daily lab coding drills, and project development.",
     },
   ];

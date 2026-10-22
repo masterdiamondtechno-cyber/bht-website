@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   Layers,
   Sparkles,
   Briefcase,
-  CheckCircle2,
 } from "lucide-react";
 
 export default function StatsSection() {
@@ -17,14 +15,6 @@ export default function StatsSection() {
       desc: "Full-scale comprehensive career curriculum",
       icon: Calendar,
       color: "text-blue-600 bg-blue-100/70",
-    },
-    {
-      value: "120",
-      unit: "Days",
-      label: "Structured Learning",
-      desc: "Daily hands-on coding and mentor guidance",
-      icon: Clock,
-      color: "text-cyan-600 bg-cyan-100/70",
     },
     {
       value: "Real-World",
@@ -58,7 +48,7 @@ export default function StatsSection() {
       <div className="absolute inset-0 dot-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (

@@ -6,7 +6,7 @@ export const courses = [
     subtitle: "Build Enterprise-Ready Web Applications with AI Integration",
     shortDescription: "Master end-to-end enterprise software development with Core Java, Spring Boot, Microservices, Modern Web Frontend, and Next-Gen AI tool integration.",
     fullDescription: "The Java Full Stack with AI program is an intensive, job-oriented curriculum engineered to transform learners into production-ready software engineers. Covering the complete spectrum from Object-Oriented Programming and robust Spring Boot backend architecture to reactive frontends and AI-powered coding workflows, this course equips you with the exact technical stack sought after by leading tech enterprises.",
-    duration: "6 Months / 120 Days",
+    duration: "6 Months",
     mode: "Classroom / Interactive Live Training",
     badge: "Most Popular",
     colorScheme: {
@@ -217,7 +217,7 @@ export const courses = [
     subtitle: "Develop Modern Applications with Python & AI",
     shortDescription: "Master agile web development with Python, Django, FastAPI, modern frontend, database engineering, and advanced LangChain & LLM integrations.",
     fullDescription: "The Python Full Stack with AI program is crafted for the modern developer who wants to build agile, data-driven, and AI-native web applications. Python has become the lingua franca of AI, and this comprehensive course combines powerful frameworks like Django and FastAPI with cutting-edge LangChain workflows and modern frontend interfaces to give you an immense competitive advantage in the tech market.",
-    duration: "6 Months / 120 Days",
+    duration: "6 Months",
     mode: "Classroom / Interactive Live Training",
     badge: "High Growth",
     colorScheme: {
@@ -417,7 +417,7 @@ export const courses = [
     subtitle: "Turn Data Into Insights and Build a Career in Data Analytics",
     shortDescription: "Transform raw data into strategic business intelligence using Advanced Excel, SQL, Python (Pandas/NumPy), Power BI, Statistics, and modern AI analytics tools.",
     fullDescription: "The Data Analytics program at Bachelor’s Hub Technologies provides a comprehensive, hands-on path to becoming an analytical problem solver. By uniting deep statistical foundations, SQL database querying, Python data science libraries, dynamic Power BI interactive dashboards, and AI-accelerated data workflows, this program prepares you for immediate impact in business intelligence and data analyst roles.",
-    duration: "6 Months / 120 Days",
+    duration: "6 Months",
     mode: "Classroom / Interactive Live Training",
     badge: "In-Demand",
     colorScheme: {

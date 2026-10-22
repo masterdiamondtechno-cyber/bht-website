@@ -6,19 +6,11 @@ import {
   X,
   ChevronDown,
   Sparkles,
-  Code2,
-  Terminal,
-  BarChart3,
   GraduationCap,
   ArrowRight,
-  Shield,
-  LogOut,
-  User,
 } from "lucide-react";
 import Button from "./Button";
-import { useAuth } from "../context/AuthContext";
-
-
+import { JavaIcon, PythonIcon, DataAnalyticsIcon } from "./CourseIcons";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,8 +18,6 @@ export default function Navbar() {
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { user, isAuthenticated, isAdmin, logout } = useAuth();
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,8 +42,6 @@ export default function Navbar() {
       to: "/courses",
       hasDropdown: true,
     },
-    { name: "Placements", to: "/placements" },
-    { name: "Campus Drives", to: "/campus-drives" },
     { name: "FAQ", to: "/faq" },
     { name: "Contact", to: "/contact" },
   ];
@@ -63,27 +51,27 @@ export default function Navbar() {
   const courseItems = [
     {
       title: "Java Full Stack with AI",
-      duration: "6 Months / 120 Days",
+      duration: "6 Months",
       to: "/courses/java-full-stack-ai",
       desc: "Core Java, Spring Boot, MySQL, Frontend & AI Tools",
-      icon: Code2,
-      accent: "text-orange-600 bg-orange-50 border-orange-200",
+      icon: JavaIcon,
+      accent: "bg-white border-orange-200/80 shadow-2xs",
     },
     {
       title: "Python Full Stack with AI",
-      duration: "6 Months / 120 Days",
+      duration: "6 Months",
       to: "/courses/python-full-stack-ai",
       desc: "Python, Django, DRF, FastAPI, AI & LangChain",
-      icon: Terminal,
-      accent: "text-blue-600 bg-blue-50 border-blue-200",
+      icon: PythonIcon,
+      accent: "bg-white border-blue-200/80 shadow-2xs",
     },
     {
       title: "Data Analytics",
-      duration: "6 Months / 120 Days",
+      duration: "6 Months",
       to: "/courses/data-analytics",
       desc: "Excel, SQL, Python, Power BI, Statistics & AI",
-      icon: BarChart3,
-      accent: "text-purple-600 bg-purple-50 border-purple-200",
+      icon: DataAnalyticsIcon,
+      accent: "bg-white border-amber-200/80 shadow-2xs",
     },
   ];
 
@@ -157,7 +145,7 @@ export default function Navbar() {
                         >
                           <div className="p-2 border-b border-slate-100 flex items-center justify-between mb-1">
                             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                              Career Programs (6M / 120D)
+                              Career Programs (6 Months)
                             </span>
                             <Link
                               to="/courses"
@@ -176,9 +164,9 @@ export default function Navbar() {
                                   className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
                                 >
                                   <div
-                                    className={`p-2 rounded-lg border shrink-0 transition-transform group-hover:scale-110 ${item.accent}`}
+                                    className={`w-9 h-9 rounded-xl border shrink-0 flex items-center justify-center p-1.5 transition-transform group-hover:scale-110 ${item.accent}`}
                                   >
-                                    <IconComponent className="w-4 h-4" />
+                                    <IconComponent className="w-5 h-5" />
                                   </div>
                                   <div>
                                     <div className="text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors flex items-center gap-1.5">
@@ -220,48 +208,6 @@ export default function Navbar() {
 
           {/* Right Action CTA */}
           <div className="hidden sm:flex items-center gap-2.5">
-
-
-            {/* Auth Buttons / User Pill */}
-            {isAuthenticated ? (
-              <div className="flex items-center gap-2">
-                {isAdmin && (
-                  <Link
-                    to="/admin"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors shadow-2xs"
-                    title="Open Administrator Portal"
-                  >
-                    <Shield className="w-3.5 h-3.5 text-purple-600" />
-                    <span>Admin Portal</span>
-                  </Link>
-                )}
-
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-100 rounded-lg text-xs font-medium text-slate-700">
-                  <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">
-                    {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
-                  </div>
-                  <span className="max-w-[100px] truncate">{user?.name?.split(" ")[0]}</span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={logout}
-                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                  title="Sign Out"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition-colors border border-slate-200"
-              >
-                <Shield className="w-3.5 h-3.5 text-slate-500" />
-                <span>Admin Login</span>
-              </Link>
-            )}
-
             <Button
               to="/admissions"
               variant="gradient"
@@ -361,45 +307,27 @@ export default function Navbar() {
                     >
                       → View All Courses Overview
                     </Link>
-                    {courseItems.map((item) => (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-white hover:text-blue-600"
-                      >
-                        <div className="font-semibold text-slate-900">{item.title}</div>
-                        <div className="text-[11px] text-slate-500">{item.duration}</div>
-                      </Link>
-                    ))}
+                    {courseItems.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-white hover:text-blue-600 transition-colors"
+                        >
+                          <div className={`w-7 h-7 rounded-lg border flex items-center justify-center p-1 shrink-0 ${item.accent}`}>
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{item.title}</div>
+                            <div className="text-[11px] text-slate-500">{item.duration}</div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
-
-              <NavLink
-                to="/placements"
-                className={({ isActive }) =>
-                  `block px-3.5 py-2.5 rounded-xl text-sm font-medium ${
-                    isActive
-                      ? "text-blue-600 bg-blue-50 font-semibold"
-                      : "text-slate-700 hover:bg-slate-50"
-                  }`
-                }
-              >
-                Placement Assistance
-              </NavLink>
-
-              <NavLink
-                to="/campus-drives"
-                className={({ isActive }) =>
-                  `block px-3.5 py-2.5 rounded-xl text-sm font-medium ${
-                    isActive
-                      ? "text-blue-600 bg-blue-50 font-semibold"
-                      : "text-slate-700 hover:bg-slate-50"
-                  }`
-                }
-              >
-                Campus Drives
-              </NavLink>
 
               <NavLink
                 to="/faq"
@@ -427,57 +355,7 @@ export default function Navbar() {
                 Contact Us
               </NavLink>
 
-              <div className="pt-4 border-t border-slate-100 space-y-2">
-                {isAuthenticated ? (
-                  <div className="p-3 bg-slate-50 rounded-xl space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
-                          {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-slate-900 leading-tight">
-                            {user?.name}
-                          </div>
-                          <div className="text-[11px] text-slate-500">{user?.email}</div>
-                        </div>
-                      </div>
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-blue-100 text-blue-700">
-                        {user?.role}
-                      </span>
-                    </div>
-
-                    {isAdmin && (
-                      <Link
-                        to="/admin"
-                        className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-bold bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                      >
-                        <Shield className="w-3.5 h-3.5" />
-                        Administrator Portal
-                      </Link>
-                    )}
-
-                    <button
-                      type="button"
-                      onClick={logout}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      Sign Out
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <Link
-                      to="/login"
-                      className="flex items-center justify-center gap-1.5 w-full py-2.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors"
-                    >
-                      <Shield className="w-3.5 h-3.5 text-slate-600" />
-                      <span>Admin Login</span>
-                    </Link>
-                  </div>
-                )}
-
+              <div className="pt-4 border-t border-slate-100">
                 <Button to="/admissions" variant="gradient" size="md" className="w-full">
                   Apply / Enquire Now
                 </Button>
