@@ -3,6 +3,8 @@ import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { siteConfig } from "../data/features";
 
 const footerEmail = "info@bachelorshubtech.com";
+const footerAddress =
+  "Bachelor's Hub Technologies, Lane No. 1, Near Warje Octroi Post, Datta Digambar Colony Road, Pune, Maharashtra 411052";
 
 export default function Footer() {
   return (
@@ -73,8 +75,9 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400">Location</div>
-                  <div className="font-medium text-white text-xs">{siteConfig.location}</div>
-                  <div className="text-[11px] text-slate-500 italic">{siteConfig.addressNote}</div>
+                  <div className="font-medium text-white text-xs leading-relaxed">
+                    {footerAddress}
+                  </div>
                 </div>
               </div>
             </div>

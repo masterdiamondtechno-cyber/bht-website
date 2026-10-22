@@ -229,32 +229,39 @@ export default function About() {
             subtitle="The foundational values that guide our curriculum design, mentorship interactions, and student commitments."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
             {coreValues.map((val, idx) => {
               const Icon = val.icon;
+              const centeredLastRow =
+                idx === 3
+                  ? "lg:col-span-2 lg:col-start-2"
+                  : idx === 4
+                    ? "lg:col-span-2 lg:col-start-4"
+                    : "lg:col-span-2";
+
               return (
-              <motion.div
-                key={val.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="bg-white p-7 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border ${val.color}`}
-                  >
-                    <Icon className="w-6 h-6" />
+                <motion.div
+                  key={val.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className={`bg-white p-7 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between ${centeredLastRow}`}
+                >
+                  <div>
+                    <div
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border ${val.color}`}
+                    >
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      {val.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {val.desc}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {val.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {val.desc}
-                  </p>
-                </div>
-              </motion.div>
+                </motion.div>
               );
             })}
           </div>

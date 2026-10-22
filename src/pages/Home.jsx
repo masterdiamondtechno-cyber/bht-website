@@ -1,11 +1,14 @@
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Sparkles,
   GraduationCap,
   Briefcase,
   Cpu,
   Check,
+  ChevronLeft,
+  ChevronRight,
+  Code2,
 } from "lucide-react";
 import Button from "../components/Button";
 import SectionHeading from "../components/SectionHeading";
@@ -16,9 +19,22 @@ import { courses } from "../data/courses";
 import { whyBhtCards, learningStages } from "../data/features";
 
 export default function Home() {
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const [isAutoSlideEnabled, setIsAutoSlideEnabled] = useState(true);
+
   useEffect(() => {
     document.title = "Bachelor’s Hub Technologies | IT Training & Career Programs";
   }, []);
+
+  useEffect(() => {
+    if (!isAutoSlideEnabled) return undefined;
+
+    const slideTimer = window.setInterval(() => {
+      setActiveHeroSlide((currentSlide) => (currentSlide === 0 ? 1 : 0));
+    }, 5000);
+
+    return () => window.clearInterval(slideTimer);
+  }, [isAutoSlideEnabled]);
 
   const introCards = [
     {
@@ -198,8 +214,23 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200/90"
+                className="relative aspect-square w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200/90"
               >
+                <AnimatePresence>
+                  {activeHeroSlide === 1 && (
+                    <motion.img
+                      key="bht-banner"
+                      src="/bht-banner.jpeg"
+                      alt="Bachelor’s Hub Technologies banner"
+                      initial={{ opacity: 0, scale: 0.96, x: 16 }}
+                      animate={{ opacity: 1, scale: 1, x: 0 }}
+                      exit={{ opacity: 0, scale: 1.02, x: -16 }}
+                      transition={{ duration: 0.55, ease: "easeInOut" }}
+                      className="absolute inset-0 z-20 h-full w-full rounded-3xl object-cover"
+                    />
+                  )}
+                </AnimatePresence>
+
                 {/* Visual Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
                   <div className="flex items-center gap-3">
@@ -263,43 +294,106 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Floating Cards around the box */}
-                <motion.div
-                  className="absolute -top-5 -left-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float"
-                >
-                  <div className="w-7 h-7 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs">
-                    6M
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-slate-900">6 Months</div>
-                    <div className="text-[10px] text-slate-500">Comprehensive</div>
-                  </div>
-                </motion.div>
+                {activeHeroSlide === 0 && (
+                  <>
+                    {/* Floating cards belong to the course overview slide. */}
+                    <motion.div
+                      className="absolute -top-5 -left-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float"
+                    >
+                      <div className="w-7 h-7 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs">
+                        6M
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-slate-900">6 Months</div>
+                        <div className="text-[10px] text-slate-500">Comprehensive</div>
+                      </div>
+                    </motion.div>
 
-                <motion.div
-                  className="absolute -bottom-6 -left-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float-slow"
-                >
-                  <div className="w-7 h-7 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
-                    <Cpu className="w-4 h-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-slate-900">AI Integration</div>
-                    <div className="text-[10px] text-slate-500">LLMs &amp; APIs</div>
-                  </div>
-                </motion.div>
+                    <motion.div
+                      className="absolute -top-5 -right-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float-slow"
+                    >
+                      <div className="w-7 h-7 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                        <Code2 className="w-4 h-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-slate-900">Job-Ready</div>
+                        <div className="text-[10px] text-slate-500">Skills &amp; Projects</div>
+                      </div>
+                    </motion.div>
 
-                <motion.div
-                  className="absolute -bottom-6 -right-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float"
-                >
-                  <div className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                    <Briefcase className="w-4 h-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-slate-900">Career Support</div>
-                    <div className="text-[10px] text-slate-500">Mock &amp; Referrals</div>
-                  </div>
-                </motion.div>
+                    <motion.div
+                      className="absolute -bottom-6 -left-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float-slow"
+                    >
+                      <div className="w-7 h-7 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+                        <Cpu className="w-4 h-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-slate-900">AI Integration</div>
+                        <div className="text-[10px] text-slate-500">LLMs &amp; APIs</div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      className="absolute -bottom-6 -right-6 bg-white py-2 px-3.5 rounded-2xl shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float"
+                    >
+                      <div className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                        <Briefcase className="w-4 h-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-slate-900">Career Support</div>
+                        <div className="text-[10px] text-slate-500">Mock &amp; Referrals</div>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
               </motion.div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAutoSlideEnabled(false);
+                  setActiveHeroSlide((slide) => (slide === 0 ? 1 : 0));
+                }}
+                aria-label="Previous hero slide"
+                className="absolute left-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-700 shadow-lg transition hover:scale-105 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 sm:-left-6"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAutoSlideEnabled(false);
+                  setActiveHeroSlide((slide) => (slide === 0 ? 1 : 0));
+                }}
+                aria-label="Next hero slide"
+                className="absolute right-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-700 shadow-lg transition hover:scale-105 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 sm:-right-6"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              <div
+                className="absolute -bottom-10 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2"
+                role="group"
+                aria-label="Hero slides"
+              >
+                {[0, 1].map((slide) => (
+                  <button
+                    key={slide}
+                    type="button"
+                    onClick={() => {
+                      setIsAutoSlideEnabled(false);
+                      setActiveHeroSlide(slide);
+                    }}
+                    aria-label={`Show ${slide === 0 ? "course overview" : "BHT banner"}`}
+                    aria-pressed={activeHeroSlide === slide}
+                    className={`h-2.5 rounded-full transition-all ${
+                      activeHeroSlide === slide
+                        ? "w-7 bg-blue-600"
+                        : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

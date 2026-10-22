@@ -88,19 +88,19 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo & Institute Name */}
-          <Link to="/" className="flex items-center gap-3 group focus:outline-none">
+          <Link to="/" className="flex items-center gap-4 group focus:outline-none">
             <div className="relative flex items-center justify-center p-1 bg-white rounded-xl shadow-2xs border border-slate-100 transition-transform group-hover:scale-105">
               <img
                 src="/bht-logo.jpg"
                 alt="Bachelor’s Hub Technologies Logo"
-                className="h-10 sm:h-12 w-auto object-contain"
+                className="h-12 sm:h-14 w-auto object-contain"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-slate-900 text-base sm:text-lg tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
+            <div className="flex flex-col items-center text-center">
+              <span className="font-extrabold text-slate-900 text-lg sm:text-xl tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
                 Bachelor’s Hub
               </span>
-              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-blue-600">
+              <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-600">
                 Technologies
               </span>
             </div>
