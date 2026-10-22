@@ -104,7 +104,7 @@ export default function Contact() {
 
                   {/* Email */}
                   <a
-                    href={`mailto:${siteConfig.email}`}
+                    href={`mailto:${siteConfig.publicEmail}`}
                     className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50 hover:bg-cyan-50/60 border border-slate-200 hover:border-cyan-200 transition-all group"
                   >
                     <div className="p-2.5 rounded-xl bg-cyan-100 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
@@ -113,7 +113,7 @@ export default function Contact() {
                     <div className="overflow-hidden">
                       <div className="text-xs text-slate-500 font-medium">Official Email</div>
                       <div className="text-xs font-bold text-slate-900 truncate">
-                        {siteConfig.email}
+                        {siteConfig.publicEmail}
                       </div>
                     </div>
                   </a>
@@ -125,10 +125,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <div className="text-xs text-slate-500 font-medium">Institute Location</div>
-                      <div className="text-sm font-bold text-slate-900">{siteConfig.location}</div>
-                      <div className="text-xs text-slate-500 italic mt-0.5">
-                        {siteConfig.addressNote}
-                      </div>
+                      <div className="text-sm font-bold text-slate-900">{siteConfig.fullAddress}</div>
                     </div>
                   </div>
                 </div>

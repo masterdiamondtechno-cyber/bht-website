@@ -239,8 +239,7 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
           <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto mb-6">
             Thank you, <strong className="text-slate-800">{formData.fullName}</strong>! Your
             admission enquiry for <strong className="text-blue-600">{formData.course}</strong> has
-            been sent to our admissions team at{" "}
-            <span className="font-semibold text-slate-800">bht.enquiry123@gmail.com</span> and recorded in our admissions spreadsheet.
+            been received by our admissions team and recorded in our admissions spreadsheet.
           </p>
 
           {/* Detailed Confirmation Card */}
@@ -268,10 +267,6 @@ export default function EnquiryForm({ defaultCourse = "", compact = false }) {
                 <span className="font-semibold text-emerald-700">
                   {formData.sameAsMobile ? formData.phone : (formData.whatsapp || formData.phone)}
                 </span>
-              </div>
-              <div className="col-span-2">
-                <span className="text-slate-400 block font-medium">Email Address:</span>
-                <span className="font-semibold text-slate-800">{formData.email}</span>
               </div>
             </div>
 

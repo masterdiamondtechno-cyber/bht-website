@@ -8,8 +8,11 @@ export const siteConfig = {
   phone: "+91 95454 84931",
   phoneRaw: "919545484931",
   email: "bachelorshubtech@gmail.com",
+  publicEmail: "info@bachelorshubtech.com",
   location: "Pune, Maharashtra",
   addressNote: "Exact address will be shared on enquiry.",
+  fullAddress:
+    "Bachelor's Hub Technologies, Lane No. 1, Near Warje Octroi Post, Datta Digambar Colony Road, Pune, Maharashtra 411052",
   whatsappUrl: "https://wa.me/919545484931",
 };
 
