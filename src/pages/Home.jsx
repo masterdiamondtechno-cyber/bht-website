@@ -1,30 +1,19 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Sparkles,
-  ArrowRight,
-  CheckCircle2,
   GraduationCap,
   Briefcase,
-  Layers,
   Cpu,
-  Clock,
-  Laptop,
   Check,
-  Building2,
-  Calendar,
-  ShieldCheck,
-  Target,
 } from "lucide-react";
 import Button from "../components/Button";
 import SectionHeading from "../components/SectionHeading";
-import StatsSection from "../components/StatsSection";
 import { JavaIcon, PythonIcon, DataAnalyticsIcon } from "../components/CourseIcons";
 import CourseCard from "../components/CourseCard";
 import FeatureCard from "../components/FeatureCard";
 import { courses } from "../data/courses";
-import { whyBhtCards, learningStages, placementPillars, siteConfig } from "../data/features";
+import { whyBhtCards, learningStages } from "../data/features";
 
 export default function Home() {
   useEffect(() => {
@@ -105,20 +94,41 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
               >
-                Transform Your Career with{" "}
+                Build Skills Today.{" "}
                 <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                  In-Demand Skills
+                  Shape Your IT Career Tomorrow.
                 </span>
               </motion.h1>
+
+              {/* Learning tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/70 px-4 py-2 text-sm sm:text-base font-extrabold tracking-wide shadow-sm max-w-2xl mx-auto lg:mx-0"
+              >
+                <Sparkles className="h-4 w-4 shrink-0 text-blue-600" />
+                <span className="inline-flex flex-wrap items-center justify-center gap-x-2.5 bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 bg-clip-text text-transparent lg:justify-start">
+                  <span>Learn</span>
+                  <span className="text-blue-500 text-xl sm:text-2xl leading-none" aria-hidden="true">→</span>
+                  <span>Practice</span>
+                  <span className="text-blue-500 text-xl sm:text-2xl leading-none" aria-hidden="true">→</span>
+                  <span>Build</span>
+                  <span className="text-blue-500 text-xl sm:text-2xl leading-none" aria-hidden="true">→</span>
+                  <span>Grow</span>
+                  <span className="text-blue-500 text-xl sm:text-2xl leading-none" aria-hidden="true">→</span>
+                  <span>Get Hired</span>
+                </span>
+              </motion.p>
 
               {/* Tagline & Description */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
                 className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
               >
-                Job-oriented training in Software Development and Data Analytics with AI Integration. Build real projects, master cutting-edge tech, and prepare for high-growth IT careers.
+                Get industry-oriented training in Software Development and Data Analytics with AI integration. Gain practical skills, work on real-world projects, and prepare for opportunities in the evolving IT industry.
               </motion.p>
 
               {/* CTAs */}
@@ -296,12 +306,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================
-          2. STATS SECTION
-          ============================================================ */}
-      <StatsSection />
-
-      {/* ============================================================
-          3. INTRODUCTION SECTION
+          2. INTRODUCTION SECTION
           ============================================================ */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -312,23 +317,11 @@ export default function Home() {
             highlight="Career Forward"
             subtitle="Bachelor’s Hub Technologies is a job-oriented training institute focused on providing industry-relevant skills in software development and data analytics. We bridge the gap between academic learning and industry requirements through hands-on training, real-world projects and continuous guidance."
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {introCards.map((card, idx) => (
-              <FeatureCard key={card.title} feature={card} index={idx} />
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Button to="/about" variant="outline" size="lg" arrow>
-              Learn More About BHT
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* ============================================================
-          4. COURSES SECTION
+          3. COURSES SECTION
           ============================================================ */}
       <section className="py-20 bg-slate-50/70 border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -344,6 +337,33 @@ export default function Home() {
             {courses.map((course, idx) => (
               <CourseCard key={course.id} course={course} index={idx} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          4. INTRODUCTION FEATURES
+          ============================================================ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="The BHT Difference"
+            badgeColor="blue"
+            title="A Learning Experience Built for"
+            highlight="Career Success"
+            subtitle="Practical, industry-aligned training that helps you build skills, confidence, and a strong foundation for your technology career."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {introCards.map((card, idx) => (
+              <FeatureCard key={card.title} feature={card} index={idx} />
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button to="/about" variant="outline" size="lg" arrow>
+              Learn More About BHT
+            </Button>
           </div>
         </div>
       </section>
@@ -437,50 +457,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============================================================
-          7. PLACEMENT PREVIEW (Soft Orange / Light Blue Gradient)
-          ============================================================ */}
-      <section className="py-20 bg-gradient-to-b from-[#FFF7ED]/50 via-[#EFF6FF]/60 to-white border-t border-orange-100/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Placement Assistance"
-            badgeColor="orange"
-            title="Your Career Doesn't End"
-            highlight="With Training"
-            subtitle="We support your career preparation with dedicated guidance, interview preparation, portfolio optimization, and placement-focused activities until you secure your role."
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {placementPillars.slice(0, 4).map((pillar, idx) => (
-              <motion.div
-                key={pillar.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs hover:shadow-md transition-all"
-              >
-                <div className="w-10 h-10 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold mb-4">
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-slate-900 mb-2">
-                  {pillar.title}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {pillar.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Button to="/admissions" variant="gradient" size="lg" arrow>
-              Start Your Career Journey
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

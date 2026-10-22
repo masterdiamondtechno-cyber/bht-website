@@ -15,7 +15,7 @@ import {
 import PageHeader from "../components/PageHeader";
 import SectionHeading from "../components/SectionHeading";
 import Button from "../components/Button";
-import { siteConfig, learningStages } from "../data/features";
+import { siteConfig, placementPillars } from "../data/features";
 
 export default function About() {
   useEffect(() => {
@@ -217,61 +217,6 @@ export default function About() {
       </section>
 
       {/* ============================================================
-          LEARNING JOURNEY ROADMAP (5 Stages: Learn, Practice, Build, Grow, Get Hired)
-          ============================================================ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="5-Stage Roadmap"
-            badgeColor="cyan"
-            title="Our 5-Stage"
-            highlight="Learning Journey"
-            subtitle="A structured pedagogical pathway engineered to take you from core programming fundamentals to production deployment and interview readiness."
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
-            {learningStages.map((stage, idx) => (
-              <motion.div
-                key={stage.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 hover:border-blue-300 shadow-2xs hover:shadow-lg transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span
-                      className={`text-xs font-mono font-bold px-2.5 py-1 rounded-lg ${stage.lightBg} ${stage.textColor} border ${stage.border}`}
-                    >
-                      STAGE {stage.step}
-                    </span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                  </div>
-
-                  <h3 className="text-xl font-extrabold text-slate-900 mb-1">
-                    {stage.phase}
-                  </h3>
-                  <div className={`text-xs font-bold ${stage.textColor} mb-3`}>
-                    {stage.subtitle}
-                  </div>
-
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {stage.whatStudentsDo}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold text-slate-500">
-                  ✓ {stage.expectedOutcome}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
           OUR CORE VALUES
           ============================================================ */}
       <section className="py-20 bg-gradient-to-b from-[#EFF6FF]/60 via-slate-50 to-white border-t border-blue-100">
@@ -288,33 +233,79 @@ export default function About() {
             {coreValues.map((val, idx) => {
               const Icon = val.icon;
               return (
-                <motion.div
-                  key={val.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="bg-white p-7 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border ${val.color}`}
-                    >
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                      {val.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      {val.desc}
-                    </p>
+              <motion.div
+                key={val.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="bg-white p-7 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border ${val.color}`}
+                  >
+                    <Icon className="w-6 h-6" />
                   </div>
-                </motion.div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">
+                    {val.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {val.desc}
+                  </p>
+                </div>
+              </motion.div>
               );
             })}
           </div>
         </div>
       </section>
+
+      {/* ============================================================
+          PLACEMENT ASSISTANCE
+          ============================================================ */}
+      <section className="py-20 bg-gradient-to-b from-[#FFF7ED]/50 via-[#EFF6FF]/60 to-white border-t border-orange-100/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="Placement Assistance"
+            badgeColor="orange"
+            title="Your Career Doesn't End"
+            highlight="With Training"
+            subtitle="We support your career preparation with dedicated guidance, interview preparation, portfolio optimization, and placement-focused activities until you secure your role."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {placementPillars.slice(0, 4).map((pillar, idx) => (
+              <motion.div
+                key={pillar.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs hover:shadow-md transition-all"
+              >
+                <div className="w-10 h-10 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold mb-4">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900 mb-2">
+                  {pillar.title}
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  {pillar.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Button to="/admissions" variant="gradient" size="lg" arrow>
+              Start Your Career Journey
+            </Button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

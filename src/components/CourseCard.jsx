@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Clock,
-  ArrowRight,
-  Sparkles,
-  CheckCircle2,
   Cpu,
 } from "lucide-react";
 import Button from "./Button";
@@ -24,7 +21,6 @@ export default function CourseCard({ course, index = 0 }) {
     "java-full-stack-ai": {
       borderColor: "hover:border-orange-300",
       iconBg: "bg-white border border-orange-200/80 shadow-md shadow-orange-500/10",
-      badge: "bg-orange-50 text-orange-700 border-orange-200",
       topHighlight: "from-orange-500 to-blue-500",
       skillBg: "bg-orange-50 text-slate-700 hover:bg-orange-100 border-orange-100",
       btnHighlight: "hover:border-orange-500 text-orange-600",
@@ -32,7 +28,6 @@ export default function CourseCard({ course, index = 0 }) {
     "python-full-stack-ai": {
       borderColor: "hover:border-cyan-300",
       iconBg: "bg-white border border-blue-200/80 shadow-md shadow-blue-500/10",
-      badge: "bg-blue-50 text-blue-700 border-blue-200",
       topHighlight: "from-blue-600 to-cyan-500",
       skillBg: "bg-blue-50 text-slate-700 hover:bg-blue-100 border-blue-100",
       btnHighlight: "hover:border-blue-500 text-blue-600",
@@ -40,7 +35,6 @@ export default function CourseCard({ course, index = 0 }) {
     "data-analytics": {
       borderColor: "hover:border-amber-300",
       iconBg: "bg-white border border-amber-200/80 shadow-md shadow-amber-500/10",
-      badge: "bg-purple-50 text-purple-700 border-purple-200",
       topHighlight: "from-amber-500 to-indigo-500",
       skillBg: "bg-purple-50 text-slate-700 hover:bg-purple-100 border-purple-100",
       btnHighlight: "hover:border-purple-500 text-purple-600",
@@ -73,11 +67,6 @@ export default function CourseCard({ course, index = 0 }) {
           </div>
 
           <div className="flex flex-col items-end gap-1.5">
-            <span
-              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold border ${currentTheme.badge}`}
-            >
-              <Sparkles className="w-3 h-3" /> {course.badge}
-            </span>
             <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
               <Clock className="w-3 h-3 text-slate-400" /> {course.duration}
             </span>

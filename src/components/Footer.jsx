@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { siteConfig } from "../data/features";
 
+const footerEmail = "info@bachelorshubtech.com";
+
 export default function Footer() {
   return (
     <footer className="bg-[#0F172A] text-slate-300 relative overflow-hidden py-8 sm:py-10 border-t border-slate-800">
@@ -53,7 +55,7 @@ export default function Footer() {
               </a>
 
               <a
-                href={`mailto:${siteConfig.email}`}
+                href={`mailto:${footerEmail}`}
                 className="flex items-center gap-2.5 text-slate-300 hover:text-cyan-300 transition-colors p-2 rounded-lg bg-slate-800/40 hover:bg-slate-800 border border-slate-800/80"
               >
                 <div className="p-1.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
@@ -61,7 +63,7 @@ export default function Footer() {
                 </div>
                 <div className="overflow-hidden">
                   <div className="text-[10px] text-slate-400">Official Email</div>
-                  <div className="font-medium text-white truncate text-xs">{siteConfig.email}</div>
+                  <div className="font-medium text-white truncate text-xs">{footerEmail}</div>
                 </div>
               </a>
 
