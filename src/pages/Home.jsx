@@ -62,14 +62,14 @@ export default function Home() {
       color: "cyan",
     },
     {
-      title: "Continuous Guidance",
-      description: "One-on-one mentor code reviews, regular milestone assessments, and personalized career roadmaps.",
+      title: "Aptitude & Soft Skills Development",
+      description: "Expert-led aptitude training by a trainer with 10+ years of experience, combined with soft-skills training to build communication, confidence, and interview readiness.",
       icon: "Target",
       color: "green",
     },
     {
       title: "Career Preparation",
-      description: "ATS-optimized resumes, LinkedIn personal branding, mock interviews, and access to recruitment opportunities.",
+      description: "ATS-optimized resumes, mock interviews, and access to recruitment opportunities.",
       icon: "Briefcase",
       color: "blue",
     },
