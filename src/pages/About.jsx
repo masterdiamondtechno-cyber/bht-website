@@ -95,7 +95,7 @@ export default function About() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-slate-900">
-                    Core Philosophy: “Learn. Build. Grow. Get Hired.”
+                    Core Philosophy: “Learn. Practice. Build. Grow. Get Hired.”
                   </div>
                   <p className="text-xs text-slate-600 mt-0.5">
                     A holistic path combining deep technical fundamentals with continuous interview mentorship.

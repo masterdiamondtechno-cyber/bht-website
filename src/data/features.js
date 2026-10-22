@@ -147,9 +147,9 @@ export const placementPillars = [
     color: "blue",
   },
   {
-    id: "linkedin",
-    title: "LinkedIn Profile Guidance",
-    desc: "Transform your LinkedIn profile into a recruiter magnet with keyword optimization, project demonstrations, and networking best practices.",
+    id: "aptitude-training",
+    title: "Aptitude Training Excellence",
+    desc: "Strengthen logical reasoning, quantitative aptitude, and problem-solving skills with expert guidance from a trainer with 10+ years of experience.",
     icon: "Share2",
     color: "cyan",
   },
